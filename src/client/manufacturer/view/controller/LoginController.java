@@ -19,6 +19,7 @@ public class LoginController implements Initializable {
     @FXML public TextField username;
     @FXML public TextField password;
     @FXML public Button login;
+    @FXML public Button add;
 
     private boolean isResultRecieved=false;
     private boolean isValid=false;
@@ -50,20 +51,24 @@ public class LoginController implements Initializable {
         login.setOnMouseClicked(event->{
             String uname=username.getText();
             String pass=password.getText();
-            new Manufacturer(uname,pass,new ManufacturerInterface(){
+            try {
+                Manufacturer.getInstance().login(uname,pass,new ManufacturerInterface(){
 
-                @Override
-                public void onError() {
-                    isValid=false;
-                    isResultRecieved=true;
-                }
+                    @Override
+                    public void onError() {
+                        isValid=false;
+                        isResultRecieved=true;
+                    }
 
-                @Override
-                public void onSuccess() {
-                    isValid=true;
-                    isResultRecieved=true;
-                }
-            });
+                    @Override
+                    public void onSuccess() {
+                        isValid=true;
+                        isResultRecieved=true;
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 }

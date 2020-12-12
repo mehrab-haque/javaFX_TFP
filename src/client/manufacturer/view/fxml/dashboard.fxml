@@ -6,11 +6,12 @@
 
 <AnchorPane prefHeight="455.0" prefWidth="317.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.manufacturer.view.controller.DashboardController">
    <children>
-      <Label fx:id="welcome" layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="319.0" text="Welcome" textFill="#2998ff">
+      <Label fx:id="welcome" layoutX="14.0" layoutY="-3.0" prefHeight="40.0" prefWidth="319.0" text="Welcome" textFill="#2998ff">
          <font>
             <Font name="Arial" size="17.0" />
          </font>
       </Label>
       <Button fx:id="logout" layoutX="251.0" layoutY="416.0" mnemonicParsing="false" style="-fx-background-color: #aa0000; -fx-text-fill: #ffffff;" text="Logout" textFill="#d7aeae" />
+      <Button fx:id="add" layoutX="15.0" layoutY="40.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="298.0" text="+ Add Car" />
    </children>
 </AnchorPane>

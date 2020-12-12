@@ -3,12 +3,25 @@ package client.manufacturer.main;
 import util.Constants;
 import util.NetworkUtil;
 
+import java.io.IOException;
+
 public class Manufacturer {
-    public Manufacturer(String userName,String password,ManufacturerInterface manufacturerInterface) {
+
+    public static Manufacturer instance=null;
+    private NetworkUtil networkUtil;
+
+    private Manufacturer() throws IOException {
+        networkUtil = new NetworkUtil(Constants.SERVER_ADDRESS, Constants.SERVER_PORT);
+    }
+
+    public static synchronized Manufacturer getInstance() throws IOException {
+        if(instance==null)
+            instance=new Manufacturer();
+        return instance;
+    }
+
+    public void login(String userName,String password,ManufacturerInterface manufacturerInterface){
         try {
-            NetworkUtil networkUtil = new NetworkUtil(Constants.SERVER_ADDRESS, Constants.SERVER_PORT);
-            //new ReadThread(networkUtil);
-            //new WriteThread(networkUtil, "Client");
             new Listener(networkUtil,manufacturerInterface);
             new Login(networkUtil,userName,password);
         } catch (Exception e) {
