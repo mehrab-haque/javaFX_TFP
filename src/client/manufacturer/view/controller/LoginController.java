@@ -52,7 +52,7 @@ public class LoginController implements Initializable {
             String uname=username.getText();
             String pass=password.getText();
             try {
-                Manufacturer.getInstance().login(uname,pass,new ManufacturerInterface(){
+                Manufacturer.getInstance().setManufacturerInterface(new ManufacturerInterface(){
 
                     @Override
                     public void onError() {
@@ -66,6 +66,7 @@ public class LoginController implements Initializable {
                         isResultRecieved=true;
                     }
                 });
+                Manufacturer.getInstance().login(uname,pass);
             } catch (IOException e) {
                 e.printStackTrace();
             }

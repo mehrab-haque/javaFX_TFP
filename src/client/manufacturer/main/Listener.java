@@ -11,11 +11,14 @@ public class Listener implements Runnable {
     private NetworkUtil networkUtil;
     private  ManufacturerInterface manufacturerInterface;
 
-    public Listener(NetworkUtil networkUtil,ManufacturerInterface manufacturerInterface) {
+    public Listener(NetworkUtil networkUtil) {
         this.networkUtil = networkUtil;
         this.thr = new Thread(this);
-        this.manufacturerInterface=manufacturerInterface;
         thr.start();
+    }
+
+    public void setManufacturerInterface(ManufacturerInterface manufacturerInterface){
+        this.manufacturerInterface=manufacturerInterface;
     }
 
     public void run() {
