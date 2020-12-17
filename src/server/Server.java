@@ -8,13 +8,26 @@ import util.NetworkUtil;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Server {
 
+    private static Server instance=null;
 
-    Server() {
+    public static synchronized Server getInstance() {
+        if(instance==null)
+            instance=new Server();
+        return instance;
+    }
+
+    List<Listener> listeners;
+
+    private Server() {
         try {
+            listeners=new ArrayList<>();
             ServerSocket serverSocket = new ServerSocket(33333);
             while (true) {
                 Socket clientSocket = serverSocket.accept();
@@ -27,13 +40,19 @@ public class Server {
 
     public void serve(Socket clientSocket) throws IOException, ClassNotFoundException, JSONException {
         NetworkUtil networkUtil = new NetworkUtil(clientSocket);
-        new Listener(networkUtil);
+        listeners.add(new Listener(networkUtil));
         //new ReadThread(networkUtil);
         //new WriteThread(networkUtil, "Server");
     }
 
+    public void notifyAllClients() throws SQLException, JSONException {
+        for(Listener listener:listeners){
+            listener.notifyListeners();
+        }
+    }
+
     public static void main(String args[]) {
         DB.getInstance();
-        Server server = new Server();
+        Server.getInstance();
     }
 }

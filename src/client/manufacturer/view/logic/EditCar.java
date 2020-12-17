@@ -31,9 +31,18 @@ public class EditCar {
 
     private void loadEditor() throws IOException, JSONException {
         editStage=new Stage();
+        Manufacturer.getInstance().getStages().add(editStage);
         editStage.setTitle("Edit Car Details");
         editStage.setScene(new Scene(new Group()));
         editStage.show();
+
+        editStage.setOnCloseRequest(event->{
+            try {
+                Manufacturer.getInstance().getStages().remove(editStage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         EditorController editorController=Util.jumpTo(editStage,"src\\client\\manufacturer\\view\\fxml\\editor.fxml").getController();
 

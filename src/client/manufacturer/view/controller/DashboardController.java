@@ -52,6 +52,9 @@ public class DashboardController implements Initializable {
         welcome.setText("Welcome "+ Profile.getInstance().getDisplayName());
         logout.setOnMouseClicked(event->{
             try {
+                for(Stage stage:Manufacturer.getInstance().getStages()){
+                    stage.close();
+                }
                 Util.jumpTo(logout,"src\\client\\manufacturer\\view\\fxml\\login.fxml");
             } catch (IOException e) {
                 e.printStackTrace();

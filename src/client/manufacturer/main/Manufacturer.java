@@ -1,10 +1,12 @@
 package client.manufacturer.main;
 
+import javafx.stage.Stage;
 import org.json.JSONObject;
 import util.Constants;
 import util.NetworkUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Manufacturer {
@@ -13,8 +15,18 @@ public class Manufacturer {
     private NetworkUtil networkUtil;
     private Listener listener;
     private ManufacturerInterface manufacturerInterface;
+    private List<Stage> stages;
+
+    public List<Stage> getStages() {
+        return stages;
+    }
+
+    public void setStages(List<Stage> stages) {
+        this.stages = stages;
+    }
 
     private Manufacturer() throws IOException {
+        stages=new ArrayList<>();
         networkUtil = new NetworkUtil(Constants.SERVER_ADDRESS, Constants.SERVER_PORT);
         listener=new Listener(networkUtil);
     }

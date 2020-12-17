@@ -28,53 +28,55 @@ public class Listener implements Runnable {
             while (true) {
                 JSONObject data = new JSONObject((String) networkUtil.read());
                 if (data != null) {
-                    if(data.getBoolean("status") && data.getLong("timestamp")==Profile.getInstance().getTimestamp()) {
-                        if(data.getString("type").equals(Constants.TYPE_SERVER_LOGIN_RESULT)){
-                            Profile.getInstance().setId(data.getInt("id"));
-                            Profile.getInstance().setDisplayName(data.getString("displayName"));
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        manufacturerInterface.onSuccess(new JSONObject());
-                                    } catch (IOException | JSONException e) {
-                                        e.printStackTrace();
+                    if(data.getString("type").equals(Constants.TYPE_CAR_LIST_NOTIFICATION)){
+                        System.out.println(data.toString());
+                    }else {
+                        if (data.getBoolean("status") && data.getLong("timestamp") == Profile.getInstance().getTimestamp()) {
+                            if (data.getString("type").equals(Constants.TYPE_SERVER_LOGIN_RESULT)) {
+                                Profile.getInstance().setId(data.getInt("id"));
+                                Profile.getInstance().setDisplayName(data.getString("displayName"));
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            manufacturerInterface.onSuccess(new JSONObject());
+                                        } catch (IOException | JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                }
-                            });
-                        }
-                        else if(data.getString("type").equals(Constants.TYPE_CAR_ADD_RESPONSE)){
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        manufacturerInterface.onSuccess(data);
-                                    } catch (IOException | JSONException e) {
-                                        e.printStackTrace();
+                                });
+                            } else if (data.getString("type").equals(Constants.TYPE_CAR_ADD_RESPONSE)) {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            manufacturerInterface.onSuccess(data);
+                                        } catch (IOException | JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                }
-                            });
-                        }
-                        else if(data.getString("type").equals(Constants.TYPE_CAR_EDIT_RESPONSE)){
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        manufacturerInterface.onSuccess(new JSONObject());
-                                    } catch (IOException | JSONException e) {
-                                        e.printStackTrace();
+                                });
+                            } else if (data.getString("type").equals(Constants.TYPE_CAR_EDIT_RESPONSE)) {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            manufacturerInterface.onSuccess(new JSONObject());
+                                        } catch (IOException | JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                }
-                            });
-                        }
-                    }else if(!data.getBoolean("status") && data.getLong("timestamp")==Profile.getInstance().getTimestamp()) {
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                manufacturerInterface.onError();
+                                });
                             }
-                        });
+                        } else if (!data.getBoolean("status") && data.getLong("timestamp") == Profile.getInstance().getTimestamp()) {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    manufacturerInterface.onError();
+                                }
+                            });
 
+                        }
                     }
                 }
             }

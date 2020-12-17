@@ -1,6 +1,7 @@
 package server;
 
 import javafx.scene.input.TouchPoint;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,5 +69,24 @@ public class DB {
         }
         jsonObject.put("status",true);
         return jsonObject;
+    }
+
+    public JSONArray getAllCars() throws SQLException, JSONException {
+        JSONArray result=new JSONArray();
+        Statement statement=connection.createStatement();
+        ResultSet resultSet=statement.executeQuery("select * from car where isReady=true");
+        while (resultSet.next()){
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("carId",resultSet.getInt("id"));
+            jsonObject.put("manufacturerId",resultSet.getInt("warehouse_id"));
+            jsonObject.put("model",resultSet.getString("model"));
+            jsonObject.put("make",resultSet.getString("make"));
+            jsonObject.put("color",resultSet.getString("color"));
+            jsonObject.put("image",resultSet.getString("image"));
+            jsonObject.put("price",resultSet.getInt("price"));
+            jsonObject.put("timestamp",Long.parseLong(resultSet.getString("timestamp")));
+            result.put(jsonObject);
+        }
+        return result;
     }
 }

@@ -1,10 +1,13 @@
 package server;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import util.Constants;
 import util.NetworkUtil;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Listener implements Runnable {
     private Thread thread;
@@ -14,6 +17,23 @@ public class Listener implements Runnable {
         this.networkUtil = networkUtil;
         this.thread = new Thread(this);
         thread.start();
+    }
+
+    public void notifyListeners(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject jsonObject=new JSONObject();
+                    JSONArray cars=DB.getInstance().getAllCars();
+                    jsonObject.put("type", Constants.TYPE_CAR_LIST_NOTIFICATION);
+                    jsonObject.put("cars",cars);
+                    networkUtil.write(jsonObject.toString());
+                } catch (JSONException | SQLException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public void run() {
@@ -40,13 +60,9 @@ public class Listener implements Runnable {
                 }
             }
         } catch (Exception e) {
-            //System.out.println(e);
+            e.printStackTrace();
         } finally {
-            try {
-                networkUtil.closeConnection();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         }
     }
 }

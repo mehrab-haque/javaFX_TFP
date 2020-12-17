@@ -9,4 +9,5 @@ public class Constants {
     public static String TYPE_CAR_ADD_RESPONSE="response_car";
     public static String TYPE_CAR_EDIT_REQUEST="request_car_edit";
     public static String TYPE_CAR_EDIT_RESPONSE="response_car_edit";
+    public static String TYPE_CAR_LIST_NOTIFICATION="notify_all";
 }
