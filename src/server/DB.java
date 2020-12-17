@@ -1,5 +1,6 @@
 package server;
 
+import javafx.scene.input.TouchPoint;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,6 +42,18 @@ public class DB {
         }
         else
             jsonObject.put("status",false);
+        return jsonObject;
+    }
+
+    public JSONObject addCar(int manufacturerId,long timestamp) throws SQLException, JSONException {
+        JSONObject jsonObject=new JSONObject();
+        Statement statement=connection.createStatement();
+        String query="insert into car (warehouse_id,timestamp) values ("+manufacturerId+",\""+timestamp+"\")";
+        statement.execute(query);
+        ResultSet resultSet=statement.executeQuery("select * from car where warehouse_id="+manufacturerId+" and timestamp=\""+timestamp+"\"");
+        resultSet.next();
+        jsonObject.put("id",resultSet.getInt("id"));
+        jsonObject.put("status",true);
         return jsonObject;
     }
 }

@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 import util.Toast;
 import util.Util;
 
@@ -21,32 +22,8 @@ public class LoginController implements Initializable {
     @FXML public Button login;
     @FXML public Button add;
 
-    private boolean isResultRecieved=false;
-    private boolean isValid=false;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-
-        new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                if(isResultRecieved){
-                    isResultRecieved=false;
-                    if(isValid){
-                        Toast.makeText((Stage)login.getScene().getWindow(),"Logged In Successfully",1000,1000,500);
-                        try {
-                            Util.jumpTo(login,"src\\client\\manufacturer\\view\\fxml\\dashboard.fxml");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }else{
-                        Toast.makeText((Stage)login.getScene().getWindow(),"Wrong Credentials",1000,1000,500);
-                    }
-                }
-            }
-        }.start();
 
         login.setOnMouseClicked(event->{
             String uname=username.getText();
@@ -56,14 +33,17 @@ public class LoginController implements Initializable {
 
                     @Override
                     public void onError() {
-                        isValid=false;
-                        isResultRecieved=true;
+                        Toast.makeText((Stage)login.getScene().getWindow(),"Wrong Credentials",1000,1000,500);
                     }
 
                     @Override
-                    public void onSuccess() {
-                        isValid=true;
-                        isResultRecieved=true;
+                    public void onSuccess(JSONObject jsonObject) {
+                        Toast.makeText((Stage)login.getScene().getWindow(),"Logged In Successfully",1000,1000,500);
+                        try {
+                            Util.jumpTo(login,"src\\client\\manufacturer\\view\\fxml\\dashboard.fxml");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
                 Manufacturer.getInstance().login(uname,pass);

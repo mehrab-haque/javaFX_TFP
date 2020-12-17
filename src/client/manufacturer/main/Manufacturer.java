@@ -26,10 +26,18 @@ public class Manufacturer {
 
     public void login(String userName,String password){
         try {
-            new Login(networkUtil,userName,password);
+            new Login(userName,password);
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    public void addCar(){
+        new AddCar();
+    }
+
+    public NetworkUtil getNetworkUtil(){
+        return networkUtil;
     }
 
     public void setManufacturerInterface(ManufacturerInterface manufacturerInterface){

@@ -7,15 +7,11 @@ import util.NetworkUtil;
 
 import java.io.IOException;
 
-public class Login implements Runnable {
+public class AddCar implements Runnable {
 
-    private String userName;
-    private String password;
     private Thread thread;
 
-    public Login(String userName, String password){
-        this.userName=userName;
-        this.password=password;
+    public AddCar(){
         thread=new Thread(this);
         thread.start();
     }
@@ -24,9 +20,8 @@ public class Login implements Runnable {
     public void run() {
         try {
             JSONObject jsonObject=new JSONObject();
-            jsonObject.put("type", Constants.TYPE_MANUFACTURER_LOGIN_REQUEST);
-            jsonObject.put("username",userName);
-            jsonObject.put("password",password);
+            jsonObject.put("type", Constants.TYPE_CAR_ADD_REQUEST);
+            jsonObject.put("id",Profile.getInstance().getId());
             long timestamp=System.currentTimeMillis();
             jsonObject.put("timestamp",timestamp);
             Profile.getInstance().setTimestamp(timestamp);

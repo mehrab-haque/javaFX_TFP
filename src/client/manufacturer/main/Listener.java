@@ -1,5 +1,6 @@
 package client.manufacturer.main;
 
+import javafx.application.Platform;
 import org.json.JSONObject;
 import util.Constants;
 import util.NetworkUtil;
@@ -26,13 +27,34 @@ public class Listener implements Runnable {
             while (true) {
                 JSONObject data = new JSONObject((String) networkUtil.read());
                 if (data != null) {
-                    if(data.getString("type").equals(Constants.TYPE_SERVER_LOGIN_RESULT) && data.getLong("timestamp")==Profile.getInstance().getTimestamp())
-                        if(data.getBoolean("status")){
+                    if(data.getBoolean("status") && data.getLong("timestamp")==Profile.getInstance().getTimestamp()) {
+                        if(data.getString("type").equals(Constants.TYPE_SERVER_LOGIN_RESULT)){
                             Profile.getInstance().setId(data.getInt("id"));
                             Profile.getInstance().setDisplayName(data.getString("displayName"));
-                            manufacturerInterface.onSuccess();
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    manufacturerInterface.onSuccess(new JSONObject());
+                                }
+                            });
                         }
-                        else manufacturerInterface.onError();
+                        else if(data.getString("type").equals(Constants.TYPE_CAR_ADD_RESPONSE)){
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    manufacturerInterface.onSuccess(data);
+                                }
+                            });
+                        }
+                    }else if(!data.getBoolean("status") && data.getLong("timestamp")==Profile.getInstance().getTimestamp()) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                manufacturerInterface.onError();
+                            }
+                        });
+
+                    }
                 }
             }
         } catch (Exception e) {
