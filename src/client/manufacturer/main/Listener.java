@@ -34,7 +34,11 @@ public class Listener implements Runnable {
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    manufacturerInterface.onSuccess(new JSONObject());
+                                    try {
+                                        manufacturerInterface.onSuccess(new JSONObject());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             });
                         }
@@ -42,7 +46,11 @@ public class Listener implements Runnable {
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    manufacturerInterface.onSuccess(data);
+                                    try {
+                                        manufacturerInterface.onSuccess(data);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             });
                         }

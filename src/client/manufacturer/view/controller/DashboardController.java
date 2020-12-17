@@ -38,7 +38,7 @@ public class DashboardController implements Initializable {
                     }
 
                     @Override
-                    public void onSuccess(JSONObject jsonObject) {
+                    public void onSuccess(JSONObject jsonObject) throws IOException {
                         new EditCar(jsonObject,(Stage)add.getScene().getWindow());
                     }
                 });

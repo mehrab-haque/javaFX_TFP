@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="203.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.manufacturer.view.controller.EditorController">
+   <children>
+      <Button fx:id="cancel" layoutX="26.0" layoutY="361.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="save" layoutX="122.0" layoutY="361.0" mnemonicParsing="false" text="Button" />
+      <ImageView fx:id="image" fitHeight="125.0" fitWidth="149.0" layoutX="25.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="select" layoutX="42.0" layoutY="176.0" mnemonicParsing="false" text="Add/Change Photo" />
+      <TextField fx:id="make" layoutX="26.0" layoutY="221.0" prefHeight="25.0" prefWidth="149.0" promptText="Make" />
+      <TextField fx:id="model" layoutX="26.0" layoutY="254.0" promptText="Model" />
+      <TextField fx:id="price" layoutX="26.0" layoutY="321.0" promptText="Price (in Taka)" />
+      <ColorPicker fx:id="color" layoutX="26.0" layoutY="286.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label fx:id="reg" layoutX="25.0" layoutY="18.0" prefHeight="17.0" prefWidth="170.0" text="Registration number: " />
+   </children>
+</AnchorPane>
