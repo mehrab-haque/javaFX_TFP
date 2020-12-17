@@ -1,5 +1,6 @@
 package client.manufacturer.main;
 
+import org.json.JSONObject;
 import util.Constants;
 import util.NetworkUtil;
 
@@ -43,6 +44,10 @@ public class Manufacturer {
     public void setManufacturerInterface(ManufacturerInterface manufacturerInterface){
         this.manufacturerInterface=manufacturerInterface;
         listener.setManufacturerInterface(manufacturerInterface);
+    }
+
+    public void editCar(JSONObject jsonObject){
+        new EditCar(jsonObject);
     }
 
 }

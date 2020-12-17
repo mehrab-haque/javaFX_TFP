@@ -7,4 +7,6 @@ public class Constants {
     public static String TYPE_SERVER_LOGIN_RESULT="loginResult";
     public static String TYPE_CAR_ADD_REQUEST="add_car";
     public static String TYPE_CAR_ADD_RESPONSE="response_car";
+    public static String TYPE_CAR_EDIT_REQUEST="request_car_edit";
+    public static String TYPE_CAR_EDIT_RESPONSE="response_car_edit";
 }

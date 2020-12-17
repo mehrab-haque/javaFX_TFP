@@ -31,4 +31,22 @@ public class Util {
         fromStage.setScene(scene);
         return loader;
     }
+
+    public static boolean isValidString(String string){
+        try{
+            string.trim().length();
+            return string.trim().length()>0;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
+    public static boolean isValidInteger(String string){
+        try {
+            Integer.parseInt(string);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
 }

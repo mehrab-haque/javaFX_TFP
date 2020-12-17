@@ -56,4 +56,17 @@ public class DB {
         jsonObject.put("status",true);
         return jsonObject;
     }
+
+    public JSONObject editCar(int manufacturerId,String model,String make,String color, int price,String image,long timestamp) throws SQLException, JSONException {
+        JSONObject jsonObject=new JSONObject();
+        Statement statement=connection.createStatement();
+        String query="update car set model=\""+model+"\",make=\""+make+"\",color=\""+color+"\",price="+price+",image=\""+image+"\",timestamp=\""+timestamp+"\",isReady=true where id="+manufacturerId;
+        try{
+            statement.execute(query);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        jsonObject.put("status",true);
+        return jsonObject;
+    }
 }

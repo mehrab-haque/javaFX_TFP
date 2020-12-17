@@ -1,6 +1,7 @@
 package client.manufacturer.main;
 
 import javafx.application.Platform;
+import org.json.JSONException;
 import org.json.JSONObject;
 import util.Constants;
 import util.NetworkUtil;
@@ -36,7 +37,7 @@ public class Listener implements Runnable {
                                 public void run() {
                                     try {
                                         manufacturerInterface.onSuccess(new JSONObject());
-                                    } catch (IOException e) {
+                                    } catch (IOException | JSONException e) {
                                         e.printStackTrace();
                                     }
                                 }
@@ -48,7 +49,19 @@ public class Listener implements Runnable {
                                 public void run() {
                                     try {
                                         manufacturerInterface.onSuccess(data);
-                                    } catch (IOException e) {
+                                    } catch (IOException | JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                        }
+                        else if(data.getString("type").equals(Constants.TYPE_CAR_EDIT_RESPONSE)){
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        manufacturerInterface.onSuccess(new JSONObject());
+                                    } catch (IOException | JSONException e) {
                                         e.printStackTrace();
                                     }
                                 }
