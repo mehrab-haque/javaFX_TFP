@@ -50,6 +50,10 @@ public class Listener implements Runnable {
                     json.put("cars",cars);
                     networkUtil.write(json.toString());
                 }
+                else if(jsonObject!=null && jsonObject.getString("type").equals(Constants.TYPE_CAR_DELETE_REQUEST)){
+                    DB.getInstance().deleteCar(jsonObject.getInt("id"));
+                    Server.getInstance().notifyAllClients();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

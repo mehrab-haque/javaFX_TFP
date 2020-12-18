@@ -89,4 +89,9 @@ public class DB {
         }
         return result;
     }
+
+    public void deleteCar(int id) throws SQLException {
+        Statement statement=connection.createStatement();
+        statement.execute("delete from car where id="+id);
+    }
 }

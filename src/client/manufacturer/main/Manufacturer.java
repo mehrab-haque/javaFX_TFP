@@ -75,4 +75,8 @@ public class Manufacturer {
         new RequestCarList();
     }
 
+    public void deleteCar(int id){
+        new DeleteCar(id);
+    }
+
 }

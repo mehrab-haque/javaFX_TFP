@@ -52,6 +52,16 @@ public class DashBoard {
                                     e.printStackTrace();
                                 }
                             });
+
+                            listItemController.delete.setOnMouseClicked(event->{
+                                try {
+                                    Manufacturer.getInstance().deleteCar(car.getInt("id"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            });
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

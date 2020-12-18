@@ -11,4 +11,6 @@ public class Constants {
     public static String TYPE_CAR_EDIT_RESPONSE="response_car_edit";
     public static String TYPE_CAR_LIST_NOTIFICATION="notify_all";
     public static String TYPE_CAR_LIST_REQUEST="notification_request";
+    public static String TYPE_CAR_DELETE_REQUEST="delete_request";
+    public static String TYPE_CAR_DELETE_RESPONSE="delete_response";
 }
