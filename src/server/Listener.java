@@ -37,7 +37,7 @@ public class Listener implements Runnable {
                     networkUtil.write(dbResult.toString());
                 }
                 else if(jsonObject!=null && jsonObject.getString("type").equals(Constants.TYPE_CAR_EDIT_REQUEST)){
-                    JSONObject dbResult=DB.getInstance().editCar(jsonObject.getInt("id"),jsonObject.getString("model"),jsonObject.getString("make"),jsonObject.getString("color"),jsonObject.getInt("price"),jsonObject.getString("image"),jsonObject.getLong("timestamp"));
+                    JSONObject dbResult=DB.getInstance().editCar(jsonObject.getInt("id"),jsonObject.getString("model"),jsonObject.getString("make"),jsonObject.getString("color"),jsonObject.getInt("price"),jsonObject.getString("image"),jsonObject.getLong("timestamp"),jsonObject.getInt("quantity"));
                     dbResult.put("type",Constants.TYPE_CAR_EDIT_RESPONSE);
                     dbResult.put("timestamp",jsonObject.getLong("timestamp"));
                     networkUtil.write(dbResult.toString());

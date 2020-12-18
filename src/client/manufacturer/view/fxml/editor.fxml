@@ -12,8 +12,9 @@
       <Button fx:id="select" layoutX="42.0" layoutY="176.0" mnemonicParsing="false" text="Add/Change Photo" />
       <TextField fx:id="make" layoutX="26.0" layoutY="221.0" prefHeight="25.0" prefWidth="149.0" promptText="Make" />
       <TextField fx:id="model" layoutX="26.0" layoutY="254.0" promptText="Model" />
-      <TextField fx:id="price" layoutX="26.0" layoutY="321.0" promptText="Price (in Taka)" />
+      <TextField fx:id="price" layoutX="26.0" layoutY="321.0" prefHeight="25.0" prefWidth="66.0" promptText="Price (in Taka)" />
       <ColorPicker fx:id="color" layoutX="26.0" layoutY="286.0" prefHeight="25.0" prefWidth="149.0" />
       <Label fx:id="reg" layoutX="25.0" layoutY="18.0" prefHeight="17.0" prefWidth="170.0" text="Registration number: " />
+      <TextField fx:id="quantity" layoutX="110.0" layoutY="321.0" prefHeight="25.0" prefWidth="66.0" promptText="Quantity" />
    </children>
 </AnchorPane>

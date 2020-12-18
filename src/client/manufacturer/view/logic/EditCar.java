@@ -56,6 +56,7 @@ public class EditCar {
         editorController.make.setText(initialData.optString("make"));
         editorController.model.setText(initialData.optString("model"));
         editorController.price.setText(initialData.optInt("price")+"");
+        editorController.quantity.setText(initialData.optInt("quantity")+"");
         if(initialData.has("color"))editorController.color.setValue(Color.valueOf(initialData.getString("color")));
 
         //functions
@@ -80,8 +81,10 @@ public class EditCar {
                 Toast.makeText(editStage,"Please enter car's make.",1000,1000,500);
             else if(!Util.isValidString(editorController.model.getText()))
                 Toast.makeText(editStage,"Please enter car's model.",1000,1000,500);
-            else if(!Util.isValidInteger(editorController.price.getText()))
+            else if(!Util.isValidInteger(editorController.price.getText()) || Integer.parseInt(editorController.price.getText())<1)
                 Toast.makeText(editStage,"Please enter car's valid price.",1000,1000,500);
+            else if(!Util.isValidInteger(editorController.quantity.getText()) || Integer.parseInt(editorController.quantity.getText())<1)
+                Toast.makeText(editStage,"Please enter car's valid quantity.",1000,1000,500);
             else {
                 try {
                     Manufacturer.getInstance().setManufacturerInterface(new ManufacturerInterface() {
@@ -103,6 +106,7 @@ public class EditCar {
                     jsonObject.put("model",editorController.model.getText().toLowerCase());
                     jsonObject.put("color",editorController.color.getValue().toString());
                     jsonObject.put("price",Integer.parseInt(editorController.price.getText()));
+                    jsonObject.put("quantity",Integer.parseInt(editorController.quantity.getText()));
                     Manufacturer.getInstance().editCar(jsonObject);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();

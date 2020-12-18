@@ -58,10 +58,10 @@ public class DB {
         return jsonObject;
     }
 
-    public JSONObject editCar(int carId,String model,String make,String color, int price,String image,long timestamp) throws SQLException, JSONException {
+    public JSONObject editCar(int carId,String model,String make,String color, int price,String image,long timestamp,int quantity) throws SQLException, JSONException {
         JSONObject jsonObject=new JSONObject();
         Statement statement=connection.createStatement();
-        String query="update car set model=\""+model+"\",make=\""+make+"\",color=\""+color+"\",price="+price+",image=\""+image+"\",timestamp=\""+timestamp+"\",isReady=true where id="+carId;
+        String query="update car set model=\""+model+"\",make=\""+make+"\",color=\""+color+"\",price="+price+",image=\""+image+"\",timestamp=\""+timestamp+"\",isReady=true,quantity="+quantity+" where id="+carId;
         try{
             statement.execute(query);
         }catch (Exception e){
@@ -85,6 +85,11 @@ public class DB {
             jsonObject.put("image",resultSet.getString("image"));
             jsonObject.put("price",resultSet.getInt("price"));
             jsonObject.put("timestamp",Long.parseLong(resultSet.getString("timestamp")));
+            jsonObject.put("quantity",resultSet.getInt("quantity"));
+            Statement statement1=connection.createStatement();
+            ResultSet resultSet1=statement1.executeQuery("select * from warehouse where id="+resultSet.getInt("warehouse_id"));
+            resultSet1.next();
+            jsonObject.put("manufacturerName",resultSet1.getString("displayname"));
             result.put(jsonObject);
         }
         return result;

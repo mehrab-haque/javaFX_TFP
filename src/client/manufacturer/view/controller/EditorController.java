@@ -16,6 +16,7 @@ public class EditorController {
     @FXML public TextField make;
     @FXML public TextField model;
     @FXML public TextField price;
+    @FXML public TextField quantity;
     @FXML public ColorPicker color;
     @FXML public Button cancel;
     @FXML public Button save;
