@@ -32,6 +32,13 @@ public class Util {
         return loader;
     }
 
+    public static FXMLLoader getFXMLLoader(String to) throws IOException {
+        File file = new File(to);
+        URL url = new URL("file:\\"+file.getAbsolutePath());
+        FXMLLoader loader=new FXMLLoader(url);
+        return loader;
+    }
+
     public static boolean isValidString(String string){
         try{
             string.trim().length();

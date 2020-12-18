@@ -2,6 +2,7 @@ package client.manufacturer.view.controller;
 
 import client.manufacturer.main.Manufacturer;
 import client.manufacturer.main.ManufacturerInterface;
+import client.manufacturer.view.logic.DashBoard;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 
@@ -40,7 +41,7 @@ public class LoginController implements Initializable {
                     public void onSuccess(JSONObject jsonObject) {
                         Toast.makeText((Stage)login.getScene().getWindow(),"Logged In Successfully",1000,1000,500);
                         try {
-                            Util.jumpTo(login,"src\\client\\manufacturer\\view\\fxml\\dashboard.fxml");
+                            new DashBoard((Stage)login.getScene().getWindow());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

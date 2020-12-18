@@ -16,6 +16,7 @@ public class Manufacturer {
     private Listener listener;
     private ManufacturerInterface manufacturerInterface;
     private List<Stage> stages;
+    private CarListInterface carListInterface;
 
     public List<Stage> getStages() {
         return stages;
@@ -23,6 +24,14 @@ public class Manufacturer {
 
     public void setStages(List<Stage> stages) {
         this.stages = stages;
+    }
+
+    public CarListInterface getCarListInterface() {
+        return carListInterface;
+    }
+
+    public void setCarListInterface(CarListInterface carListInterface) {
+        this.carListInterface = carListInterface;
     }
 
     private Manufacturer() throws IOException {

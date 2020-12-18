@@ -58,10 +58,10 @@ public class DB {
         return jsonObject;
     }
 
-    public JSONObject editCar(int manufacturerId,String model,String make,String color, int price,String image,long timestamp) throws SQLException, JSONException {
+    public JSONObject editCar(int carId,String model,String make,String color, int price,String image,long timestamp) throws SQLException, JSONException {
         JSONObject jsonObject=new JSONObject();
         Statement statement=connection.createStatement();
-        String query="update car set model=\""+model+"\",make=\""+make+"\",color=\""+color+"\",price="+price+",image=\""+image+"\",timestamp=\""+timestamp+"\",isReady=true where id="+manufacturerId;
+        String query="update car set model=\""+model+"\",make=\""+make+"\",color=\""+color+"\",price="+price+",image=\""+image+"\",timestamp=\""+timestamp+"\",isReady=true where id="+carId;
         try{
             statement.execute(query);
         }catch (Exception e){
@@ -74,7 +74,7 @@ public class DB {
     public JSONArray getAllCars() throws SQLException, JSONException {
         JSONArray result=new JSONArray();
         Statement statement=connection.createStatement();
-        ResultSet resultSet=statement.executeQuery("select * from car where isReady=true");
+        ResultSet resultSet=statement.executeQuery("select * from car where isReady=true order by timestamp desc");
         while (resultSet.next()){
             JSONObject jsonObject=new JSONObject();
             jsonObject.put("carId",resultSet.getInt("id"));

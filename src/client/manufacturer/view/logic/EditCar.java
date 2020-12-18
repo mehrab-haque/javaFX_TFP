@@ -2,6 +2,7 @@ package client.manufacturer.view.logic;
 
 import client.manufacturer.main.Manufacturer;
 import client.manufacturer.main.ManufacturerInterface;
+import client.manufacturer.main.Profile;
 import client.manufacturer.view.controller.EditorController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -48,6 +49,14 @@ public class EditCar {
 
         //Previous data
         editorController.reg.setText("Registration No: "+initialData.getInt("id"));
+        if(initialData.has("image")){
+            image=initialData.getString("image");
+            editorController.image.setImage(new Image(image));
+        }
+        editorController.make.setText(initialData.optString("make"));
+        editorController.model.setText(initialData.optString("model"));
+        editorController.price.setText(initialData.optInt("price")+"");
+        if(initialData.has("color"))editorController.color.setValue(Color.valueOf(initialData.getString("color")));
 
         //functions
         editorController.select.setOnMouseClicked(event->{
@@ -88,7 +97,7 @@ public class EditCar {
                         }
                     });
                     JSONObject jsonObject=new JSONObject();
-                    jsonObject.put("id",initialData.getInt("id"));
+                    jsonObject.put("id", initialData.getInt("id"));
                     jsonObject.put("image",image);
                     jsonObject.put("make",editorController.make.getText().toLowerCase());
                     jsonObject.put("model",editorController.model.getText().toLowerCase());

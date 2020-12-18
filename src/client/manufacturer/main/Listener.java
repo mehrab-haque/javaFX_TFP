@@ -29,7 +29,18 @@ public class Listener implements Runnable {
                 JSONObject data = new JSONObject((String) networkUtil.read());
                 if (data != null) {
                     if(data.getString("type").equals(Constants.TYPE_CAR_LIST_NOTIFICATION)){
-                        System.out.println(data.toString());
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Manufacturer.getInstance().getCarListInterface().onListUpdated(data.getJSONArray("cars"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     }else {
                         if (data.getBoolean("status") && data.getLong("timestamp") == Profile.getInstance().getTimestamp()) {
                             if (data.getString("type").equals(Constants.TYPE_SERVER_LOGIN_RESULT)) {

@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,15 +25,10 @@ public class DashboardController implements Initializable {
     @FXML public Label welcome;
     @FXML public Button logout;
     @FXML public Button add;
+    @FXML public VBox vBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        try {
-            Manufacturer.getInstance().requestCarList();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         add.setOnMouseClicked(mouseEvent -> {
             try {
