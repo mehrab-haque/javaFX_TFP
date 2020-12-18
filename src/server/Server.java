@@ -1,5 +1,6 @@
 package server;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import util.Constants;
@@ -11,11 +12,11 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Server {
 
     private static Server instance=null;
+    private List<NetworkUtil> clients;
 
     public static synchronized Server getInstance() {
         if(instance==null)
@@ -23,31 +24,42 @@ public class Server {
         return instance;
     }
 
-    List<Listener> listeners;
 
     private Server() {
-        try {
-            listeners=new ArrayList<>();
-            ServerSocket serverSocket = new ServerSocket(33333);
-            while (true) {
-                Socket clientSocket = serverSocket.accept();
-                serve(clientSocket);
+        clients=new ArrayList<>();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ServerSocket serverSocket = new ServerSocket(33333);
+                    while (true) {
+                        Socket clientSocket = serverSocket.accept();
+                        serve(clientSocket);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Server starts:" + e);
+                }
             }
-        } catch (Exception e) {
-            System.out.println("Server starts:" + e);
-        }
+        }).start();
     }
 
     public void serve(Socket clientSocket) throws IOException, ClassNotFoundException, JSONException {
         NetworkUtil networkUtil = new NetworkUtil(clientSocket);
-        listeners.add(new Listener(networkUtil));
-        //new ReadThread(networkUtil);
-        //new WriteThread(networkUtil, "Server");
+        clients.add(networkUtil);
+        new Listener(networkUtil);
     }
 
     public void notifyAllClients() throws SQLException, JSONException {
-        for(Listener listener:listeners){
-            listener.notifyListeners();
+        JSONArray cars=DB.getInstance().getAllCars();
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("type", Constants.TYPE_CAR_LIST_NOTIFICATION);
+        jsonObject.put("cars",cars);
+        for(NetworkUtil client:clients){
+            try {
+                client.write(jsonObject.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

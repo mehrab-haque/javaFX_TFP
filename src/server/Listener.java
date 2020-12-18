@@ -19,22 +19,6 @@ public class Listener implements Runnable {
         thread.start();
     }
 
-    public void notifyListeners(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    JSONObject jsonObject=new JSONObject();
-                    JSONArray cars=DB.getInstance().getAllCars();
-                    jsonObject.put("type", Constants.TYPE_CAR_LIST_NOTIFICATION);
-                    jsonObject.put("cars",cars);
-                    networkUtil.write(jsonObject.toString());
-                } catch (JSONException | SQLException | IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
 
     public void run() {
         try {
@@ -57,6 +41,14 @@ public class Listener implements Runnable {
                     dbResult.put("type",Constants.TYPE_CAR_EDIT_RESPONSE);
                     dbResult.put("timestamp",jsonObject.getLong("timestamp"));
                     networkUtil.write(dbResult.toString());
+                    Server.getInstance().notifyAllClients();
+                }
+                else if(jsonObject!=null && jsonObject.getString("type").equals(Constants.TYPE_CAR_LIST_REQUEST)){
+                    JSONArray cars=DB.getInstance().getAllCars();
+                    JSONObject json=new JSONObject();
+                    json.put("type", Constants.TYPE_CAR_LIST_NOTIFICATION);
+                    json.put("cars",cars);
+                    networkUtil.write(json.toString());
                 }
             }
         } catch (Exception e) {

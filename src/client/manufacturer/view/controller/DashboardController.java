@@ -28,6 +28,12 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        try {
+            Manufacturer.getInstance().requestCarList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         add.setOnMouseClicked(mouseEvent -> {
             try {
                 Manufacturer.getInstance().setManufacturerInterface(new ManufacturerInterface(){

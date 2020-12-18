@@ -62,4 +62,8 @@ public class Manufacturer {
         new EditCar(jsonObject);
     }
 
+    public void requestCarList(){
+        new RequestCarList();
+    }
+
 }
