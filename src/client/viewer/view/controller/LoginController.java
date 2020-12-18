@@ -1,17 +1,17 @@
-package client.manufacturer.view.controller;
+package client.viewer.view.controller;
 
-import client.manufacturer.main.Manufacturer;
-import client.manufacturer.main.ManufacturerInterface;
-import client.manufacturer.view.logic.DashBoard;
-import javafx.animation.AnimationTimer;
+
+import client.viewer.main.Viewer;
+import client.viewer.main.ViewerInterface;
+import client.viewer.view.logic.DashBoard;
 import javafx.fxml.FXML;
-
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.json.JSONException;
 import org.json.JSONObject;
 import util.Toast;
-import util.Util;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     @FXML public TextField username;
-    @FXML public TextField password;
     @FXML public Button login;
 
     @Override
@@ -27,17 +26,14 @@ public class LoginController implements Initializable {
 
         login.setOnMouseClicked(event->{
             String uname=username.getText();
-            String pass=password.getText();
             try {
-                Manufacturer.getInstance().setManufacturerInterface(new ManufacturerInterface(){
-
+                Viewer.getInstance().setViewerInterface(new ViewerInterface(){
                     @Override
                     public void onError() {
                         Toast.makeText((Stage)login.getScene().getWindow(),"Wrong Credentials",1000,1000,500);
                     }
-
                     @Override
-                    public void onSuccess(JSONObject jsonObject) {
+                    public void onSuccess(JSONObject data) throws IOException, JSONException {
                         Toast.makeText((Stage)login.getScene().getWindow(),"Logged In Successfully",1000,1000,500);
                         try {
                             new DashBoard((Stage)login.getScene().getWindow());
@@ -46,7 +42,7 @@ public class LoginController implements Initializable {
                         }
                     }
                 });
-                Manufacturer.getInstance().login(uname,pass);
+                Viewer.getInstance().login(uname);
             } catch (IOException e) {
                 e.printStackTrace();
             }

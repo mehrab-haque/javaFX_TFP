@@ -1,4 +1,4 @@
-package client.manufacturer.main;
+package util;
 
 import org.json.JSONArray;
 import org.json.JSONException;

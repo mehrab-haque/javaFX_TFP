@@ -2,6 +2,7 @@ package client.manufacturer.main;
 
 import javafx.stage.Stage;
 import org.json.JSONObject;
+import util.CarListInterface;
 import util.Constants;
 import util.NetworkUtil;
 

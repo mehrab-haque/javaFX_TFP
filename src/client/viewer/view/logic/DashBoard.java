@@ -1,18 +1,9 @@
-package client.manufacturer.view.logic;
+package client.viewer.view.logic;
 
-import util.CarListInterface;
-import client.manufacturer.main.Manufacturer;
-import client.manufacturer.main.Profile;
-import client.manufacturer.view.controller.DashboardController;
-import client.manufacturer.view.controller.ListItemController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.image.Image;
+
+import client.viewer.main.Viewer;
+import client.viewer.view.controller.DashboardController;
 import javafx.stage.Stage;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import util.Util;
 
 import java.io.IOException;
 
@@ -22,8 +13,8 @@ public class DashBoard {
 
     public DashBoard(Stage stage) throws IOException {
         this.stage=stage;
-        dashboardController=Util.jumpTo(stage,"src\\client\\manufacturer\\view\\fxml\\dashboard.fxml").getController();
-        Manufacturer.getInstance().setCarListInterface(new CarListInterface() {
+        //dashboardController=Util.jumpTo(stage,"src\\client\\manufacturer\\view\\fxml\\dashboard.fxml").getController();
+        /*Manufacturer.getInstance().setCarListInterface(new CarListInterface() {
             @Override
             public void onListUpdated(JSONArray jsonArray) throws JSONException {
                 dashboardController.vBox.getChildren().clear();
@@ -68,9 +59,9 @@ public class DashBoard {
                     }
                 }
             }
-        });
+        });*/
         try {
-            Manufacturer.getInstance().requestCarList();
+            Viewer.getInstance().requestCarList();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -54,6 +54,15 @@ public class Listener implements Runnable {
                     DB.getInstance().deleteCar(jsonObject.getInt("id"));
                     Server.getInstance().notifyAllClients();
                 }
+                else if(jsonObject!=null && jsonObject.getString("type").equals(Constants.TYPE_VIEWER_LOGIN_REQUEST)){
+                    JSONObject response=new JSONObject();
+                    response.put("type",Constants.TYPE_VIEWER_LOGIN_RESULT);
+                    if(jsonObject.getString("username").equals(Constants.TYPE_VIEWER_USERNAME))
+                        response.put("status",true);
+                    else
+                        response.put("status",false);
+                    networkUtil.write(response.toString());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
