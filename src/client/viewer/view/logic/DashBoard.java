@@ -78,13 +78,8 @@ public class DashBoard {
         }
     }
 
-    private void tokenize(){
-
-    }
-
     private void liveSearch(String searchString) throws JSONException {
         JSONArray jsonArray=new JSONArray();
-        plotCars(carList);
         String[] searchTokens=searchString.split(" ");
         for(int i=0;i<carList.length();i++){
             JSONObject car=carList.getJSONObject(i);
