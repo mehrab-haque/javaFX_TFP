@@ -24,7 +24,6 @@ public class AddCar implements Runnable {
             jsonObject.put("id",Profile.getInstance().getId());
             long timestamp=System.currentTimeMillis();
             jsonObject.put("timestamp",timestamp);
-            Profile.getInstance().setTimestamp(timestamp);
             Manufacturer.getInstance().getNetworkUtil().write(jsonObject.toString());
         } catch (JSONException | IOException e) {
             e.printStackTrace();

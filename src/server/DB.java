@@ -32,7 +32,7 @@ public class DB {
         return connection;
     }
 
-    public JSONObject manufacturerLogin(String userName, String password) throws SQLException, JSONException {
+    public synchronized JSONObject manufacturerLogin(String userName, String password) throws SQLException, JSONException {
         JSONObject jsonObject=new JSONObject();
         Statement statement=connection.createStatement();
         ResultSet resultSet=statement.executeQuery("select * from warehouse where username=\""+userName+"\" and password=\""+password+"\"");
@@ -46,7 +46,7 @@ public class DB {
         return jsonObject;
     }
 
-    public JSONObject addCar(int manufacturerId,long timestamp) throws SQLException, JSONException {
+    public synchronized JSONObject addCar(int manufacturerId,long timestamp) throws SQLException, JSONException {
         JSONObject jsonObject=new JSONObject();
         Statement statement=connection.createStatement();
         String query="insert into car (warehouse_id,timestamp) values ("+manufacturerId+",\""+timestamp+"\")";
@@ -58,7 +58,7 @@ public class DB {
         return jsonObject;
     }
 
-    public JSONObject editCar(int carId,String model,String make,String color, int price,String image,long timestamp,int quantity) throws SQLException, JSONException {
+    public synchronized JSONObject editCar(int carId,String model,String make,String color, int price,String image,long timestamp,int quantity) throws SQLException, JSONException {
         JSONObject jsonObject=new JSONObject();
         Statement statement=connection.createStatement();
         String query="update car set model=\""+model+"\",make=\""+make+"\",color=\""+color+"\",price="+price+",image=\""+image+"\",timestamp=\""+timestamp+"\",isReady=true,quantity="+quantity+" where id="+carId;
@@ -71,7 +71,7 @@ public class DB {
         return jsonObject;
     }
 
-    public JSONArray getAllCars() throws SQLException, JSONException {
+    public synchronized JSONArray getAllCars() throws SQLException, JSONException {
         JSONArray result=new JSONArray();
         Statement statement=connection.createStatement();
         ResultSet resultSet=statement.executeQuery("select * from car where isReady=true order by timestamp desc");
@@ -95,8 +95,16 @@ public class DB {
         return result;
     }
 
-    public void deleteCar(int id) throws SQLException {
+    public synchronized void deleteCar(int id) throws SQLException {
         Statement statement=connection.createStatement();
         statement.execute("delete from car where id="+id);
+    }
+
+    public synchronized void buyCar(int id) throws SQLException {
+        Statement statement1=connection.createStatement();
+        ResultSet resultSet=statement1.executeQuery("select quantity from car where id="+id);
+        resultSet.next();
+        Statement statement2=connection.createStatement();
+        statement2.execute("update car set quantity="+(resultSet.getInt("quantity")-1)+" where id="+id);
     }
 }

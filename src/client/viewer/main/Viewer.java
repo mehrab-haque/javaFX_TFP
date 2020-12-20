@@ -58,4 +58,8 @@ public class Viewer {
         new RequestCarList();
     }
 
+    public void buyCar(int carId){
+        new BuyCar(carId);
+    }
+
 }

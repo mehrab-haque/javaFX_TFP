@@ -41,6 +41,8 @@ public class Listener implements Runnable {
                                     e.printStackTrace();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
+                                }catch(NullPointerException e){
+
                                 }
                             }
                         });
@@ -53,6 +55,20 @@ public class Listener implements Runnable {
                                         try {
                                             viewerInterface.onSuccess(new JSONObject());
                                         } catch (IOException | JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            }
+                            else if(data.getString("type").equals(Constants.TYPE_CAR_BUY_RESPONSE)){
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            viewerInterface.onSuccess(new JSONObject());
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
                                     }

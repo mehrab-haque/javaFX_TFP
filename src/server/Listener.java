@@ -63,6 +63,14 @@ public class Listener implements Runnable {
                         response.put("status",false);
                     networkUtil.write(response.toString());
                 }
+                else if(jsonObject!=null && jsonObject.getString("type").equals(Constants.TYPE_CAR_BUY_REQUEST)){
+                    JSONObject response=new JSONObject();
+                    DB.getInstance().buyCar(jsonObject.getInt("id"));
+                    response.put("type",Constants.TYPE_CAR_BUY_RESPONSE);
+                    response.put("status",true);
+                    networkUtil.write(response.toString());
+                    Server.getInstance().notifyAllClients();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

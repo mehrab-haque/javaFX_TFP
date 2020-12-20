@@ -17,6 +17,7 @@ public class Login {
 
     public Login(Stage stage) throws IOException {
         this.stage=stage;
+        stage.setTitle("Manufacturer");
         Util.jumpTo(stage,"src\\client\\manufacturer\\view\\fxml\\login.fxml");
     }
 }

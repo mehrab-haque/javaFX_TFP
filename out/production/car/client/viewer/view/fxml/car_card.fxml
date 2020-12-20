@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="329.0" prefWidth="217.0" style="-fx-border-color: #aaaaaa; -fx-border-width: 1; -fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.viewer.view.controller.CarCardController">
+   <children>
+      <ImageView fx:id="image" fitHeight="140.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" />
+      <Button fx:id="buy" layoutX="112.0" layoutY="294.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #00aa00; -fx-text-fill: #ffffff;" text="Buy Now !!!" />
+      <Label fx:id="available" layoutX="14.0" layoutY="298.0" text="3 Cars Available" textFill="#ff7d00" />
+      <Label fx:id="manufacturer" layoutX="17.0" layoutY="148.0" prefHeight="36.0" prefWidth="183.0" text="-added by BUEt Warehouse on dsdsdsdsdsd" textFill="#757575" wrapText="true" />
+      <Label fx:id="make" layoutX="14.0" layoutY="192.0" prefHeight="17.0" prefWidth="169.0" text="Label" />
+      <Label fx:id="model" layoutX="14.0" layoutY="219.0" prefHeight="17.0" prefWidth="176.0" text="Label" />
+      <Label fx:id="price" layoutX="14.0" layoutY="273.0" prefHeight="17.0" prefWidth="176.0" text="Price : $15000" textFill="#00ab25" />
+      <Label layoutX="14.0" layoutY="247.0" text="Color : " />
+      <Label fx:id="color" layoutX="59.0" layoutY="248.0" prefHeight="17.0" prefWidth="38.0" />
+      <Label fx:id="reg" layoutX="3.0" layoutY="121.0" prefHeight="17.0" style="-fx-background-color: #00000088; -fx-padding: 2; -fx-text-fill: #ffffffff;" text="Label" />
+   </children>
+</AnchorPane>

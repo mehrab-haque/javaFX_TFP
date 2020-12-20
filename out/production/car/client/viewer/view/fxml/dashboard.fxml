@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="436.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.viewer.view.controller.DashboardController">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <content>
+            <FlowPane fx:id="flowPane" prefHeight="419.0" prefWidth="600.0" style="-fx-background-color: #f4f4f4; -fx-padding: 16;" />
+         </content></ScrollPane>
+      <TextField fx:id="search" layoutX="161.0" layoutY="15.0" prefHeight="25.0" prefWidth="424.0" promptText="Livesearch cars by putting reg no/make/model/manufacturer/price" />
+      <Label layoutX="9.0" layoutY="1.0" prefHeight="58.0" prefWidth="147.0" text="Live search by reg no/make/model/ manufacturer/price" textAlignment="CENTER" textFill="#727272" wrapText="true" />
+   </children>
+</AnchorPane>

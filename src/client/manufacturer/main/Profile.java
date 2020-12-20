@@ -4,15 +4,6 @@ public class Profile {
     private static Profile instance=null;
     private String displayName;
     private int id;
-    private long timestamp;
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
 
     private Profile(){
 

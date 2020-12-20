@@ -42,7 +42,7 @@ public class Listener implements Runnable {
                             }
                         });
                     }else {
-                        if (data.getBoolean("status") && data.getLong("timestamp") == Profile.getInstance().getTimestamp()) {
+                        if (data.getBoolean("status")) {
                             if (data.getString("type").equals(Constants.TYPE_SERVER_LOGIN_RESULT)) {
                                 Profile.getInstance().setId(data.getInt("id"));
                                 Profile.getInstance().setDisplayName(data.getString("displayName"));
@@ -79,7 +79,7 @@ public class Listener implements Runnable {
                                     }
                                 });
                             }
-                        } else if (!data.getBoolean("status") && data.getLong("timestamp") == Profile.getInstance().getTimestamp()) {
+                        } else if (!data.getBoolean("status")) {
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {

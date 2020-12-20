@@ -41,6 +41,7 @@ public class DashBoard {
                             listItemController.make.setText(car.getString("make"));
                             listItemController.model.setText(car.getString("model"));
                             listItemController.price.setText(car.getInt("price")+"");
+                            listItemController.quantity.setText("Qty : "+car.getInt("quantity"));
                             listItemController.timestamp.setText(car.getLong("timestamp")+"");
 
                             listItemController.edit.setOnMouseClicked(event->{

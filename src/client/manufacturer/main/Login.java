@@ -29,7 +29,6 @@ public class Login implements Runnable {
             jsonObject.put("password",password);
             long timestamp=System.currentTimeMillis();
             jsonObject.put("timestamp",timestamp);
-            Profile.getInstance().setTimestamp(timestamp);
             Manufacturer.getInstance().getNetworkUtil().write(jsonObject.toString());
         } catch (JSONException | IOException e) {
             e.printStackTrace();
