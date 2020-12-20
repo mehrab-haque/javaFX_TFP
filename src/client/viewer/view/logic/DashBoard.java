@@ -83,13 +83,12 @@ public class DashBoard {
         String[] searchTokens=searchString.split(" ");
         for(int i=0;i<carList.length();i++){
             JSONObject car=carList.getJSONObject(i);
+            String stringSequence=car.getString("make").trim().toLowerCase()+car.getString("model").trim().toLowerCase()+car.getInt("carId")+car.getString("manufacturerName").trim().toLowerCase()+car.getInt("price");
             for(int j=0;j<searchTokens.length;j++){
-                String token=searchTokens[j].trim().toLowerCase();
-                String stringSequence=car.getString("make").trim().toLowerCase()+car.getString("model").trim().toLowerCase()+car.getInt("id")+car.getString("manufacturerName").trim().toLowerCase()+car.getInt("price");
-                if(stringSequence.contains(token)){
-                    jsonArray.put(car);
+                if(!stringSequence.contains(searchTokens[j].trim().toLowerCase()))
                     break;
-                }
+                if(j==searchTokens.length-1)
+                    jsonArray.put(car);
             }
         }
         plotCars(jsonArray);
