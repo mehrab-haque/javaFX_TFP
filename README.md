@@ -12,4 +12,6 @@
 |Manufacturer|src>client>manufacturer>view>logic>Main.java|username : cse and password : 18
 |Admin|src>client>admin>Admin.java|-|
 
+Car images might be broken as the image locations in the database are set as it is in my machine, you can update it from the manufacturer program.
+
   
