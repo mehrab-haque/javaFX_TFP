@@ -27,7 +27,7 @@ public class DB {
 
     private Connection connect() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection= DriverManager.getConnection("jdbc:mysql://localhost:3306/javafx","mehrab","zehady22448888");
+        Connection connection= DriverManager.getConnection("jdbc:mysql://localhost:3306/javafx","user","password");
         System.out.println("database connceted successfully");
         return connection;
     }
