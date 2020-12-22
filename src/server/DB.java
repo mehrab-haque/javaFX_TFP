@@ -107,4 +107,54 @@ public class DB {
         Statement statement2=connection.createStatement();
         statement2.execute("update car set quantity="+(resultSet.getInt("quantity")-1)+" where id="+id);
     }
+
+    public synchronized JSONArray getAllManufacturers() throws SQLException, JSONException {
+        JSONArray result=new JSONArray();
+        Statement statement=connection.createStatement();
+        ResultSet resultSet=statement.executeQuery("select * from warehouse");
+        while (resultSet.next()){
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("id",resultSet.getInt("id"));
+            jsonObject.put("userName",resultSet.getString("username"));
+            jsonObject.put("displayName",resultSet.getString("displayname"));
+            jsonObject.put("password",resultSet.getString("password"));
+            result.put(jsonObject);
+        }
+        return result;
+    }
+
+    public synchronized JSONObject addManufacturer(String displayName,String userName,String password) throws JSONException {
+        JSONObject jsonObject=new JSONObject();
+        try{
+            Statement statement=connection.createStatement();
+            String query="insert into warehouse (displayname,username,password) values (\""+displayName+"\",\""+userName+"\",\""+password+"\")";
+            statement.execute(query);
+            jsonObject.put("status",true);
+            return jsonObject;
+        }catch(Exception e){
+            jsonObject.put("status",false);
+            return jsonObject;
+        }
+    }
+
+    public synchronized JSONObject deleteManufacturer(int id) throws JSONException {
+        JSONObject result=new JSONObject();
+        try{
+            Statement statement=connection.createStatement();
+            ResultSet resultSet=statement.executeQuery("select * from warehouse where id="+id);
+            if(resultSet.next()) {
+                statement.execute("delete from warehouse where id=" + id);
+                statement.execute("delete from car where warehouse_id=" + id);
+                result.put("status",true);
+                return result;
+            }else{
+                result.put("status",false);
+                return result;
+            }
+        }catch(Exception e){
+            result.put("status",false);
+            return result;
+        }
+
+    }
 }

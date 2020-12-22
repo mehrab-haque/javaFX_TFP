@@ -17,5 +17,10 @@ public class Constants {
     public static String TYPE_CAR_DELETE_REQUEST="delete_request";
     public static String TYPE_CAR_BUY_REQUEST="buy_request";
     public static String TYPE_CAR_BUY_RESPONSE="buy_response";
-
+    public static String TYPE_MANUFACTURER_LIST_REQUEST="manufacturer_list_request";
+    public static String TYPE_MANUFACTURER_LIST_RESPONSE="manufacturer_list_response";
+    public static String TYPE_MANUFACTURER_ADD_REQUEST="manufacturer_add_request";
+    public static String TYPE_MANUFACTURER_ADD_RESPONSE="manufacturer_add_response";
+    public static String TYPE_MANUFACTURER_DELETE_RREQUEST="manufacturer_delete_request";
+    public static String TYPE_MANUFACTURER_DELETE_RESPONSE="manufacturer_delete_response";
 }

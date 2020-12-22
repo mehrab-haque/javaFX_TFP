@@ -71,6 +71,24 @@ public class Listener implements Runnable {
                     networkUtil.write(response.toString());
                     Server.getInstance().notifyAllClients();
                 }
+                else if(jsonObject!=null && jsonObject.getString("type").equals(Constants.TYPE_MANUFACTURER_LIST_REQUEST)){
+                    JSONArray manufacturers=DB.getInstance().getAllManufacturers();
+                    JSONObject response=new JSONObject();
+                    response.put("type",Constants.TYPE_MANUFACTURER_LIST_RESPONSE);
+                    response.put("manufacturers",manufacturers);
+                    networkUtil.write(response.toString());
+                }
+                else if(jsonObject!=null && jsonObject.getString("type").equals(Constants.TYPE_MANUFACTURER_ADD_REQUEST)){
+                    JSONObject response=DB.getInstance().addManufacturer(jsonObject.getString("displayName"),jsonObject.getString("userName"),jsonObject.getString("password"));
+                    response.put("type",Constants.TYPE_MANUFACTURER_ADD_RESPONSE);
+                    networkUtil.write(response.toString());
+                }
+                else if(jsonObject!=null && jsonObject.getString("type").equals(Constants.TYPE_MANUFACTURER_DELETE_RREQUEST)){
+                    JSONObject response=DB.getInstance().deleteManufacturer(jsonObject.getInt("id"));
+                    response.put("type",Constants.TYPE_MANUFACTURER_DELETE_RESPONSE);
+                    networkUtil.write(response.toString());
+                    Server.getInstance().notifyAllClients();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -63,13 +63,12 @@ public class DashBoard {
         });
 
 
-        Viewer.getInstance().setCarListInterface(new CarListInterface() {
-            @Override
-            public void onListUpdated(JSONArray jsonArray) throws JSONException {
-                carList=jsonArray;
-                liveSearch(dashboardController.search.getText());
-            }
-        });
+        CarListInterface carListInterface=jsonArray -> {
+            carList=jsonArray;
+            liveSearch(dashboardController.search.getText());
+        };
+
+        Viewer.getInstance().setCarListInterface(carListInterface);
 
         try {
             Viewer.getInstance().requestCarList();
@@ -85,6 +84,8 @@ public class DashBoard {
             JSONObject car=carList.getJSONObject(i);
             String stringSequence=car.getString("make").trim().toLowerCase()+car.getString("model").trim().toLowerCase()+car.getInt("carId")+car.getString("manufacturerName").trim().toLowerCase()+car.getInt("price");
             for(int j=0;j<searchTokens.length;j++){
+
+
                 if(!stringSequence.contains(searchTokens[j].trim().toLowerCase()))
                     break;
                 if(j==searchTokens.length-1)
